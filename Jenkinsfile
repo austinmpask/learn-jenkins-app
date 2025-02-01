@@ -33,8 +33,7 @@ pipeline {
                 stage('Integration Tests') {
                     steps {
                         sh '''
-                        echo "integration tests idk
-
+                        echo "integration tests idk"
                         '''
                     }
                 }
