@@ -53,6 +53,7 @@ pipeline {
                 echo "Site ID: $NETLIFY_SITE_ID"
                 npx netlify status
                 npx netlify deploy --dir=build --prod
+                echo "done"
                 '''
             }
         }
