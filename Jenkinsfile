@@ -1,14 +1,13 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'node:18-alpine'
+            reuseNode true
+        }
+    }
 
     stages {
-        stage('build') {
-            agent {
-                docker {
-                    image 'node:18-alpine'
-                    reuseNode true
-                }
-            }
+        stage('Build') {
             steps {
                 sh '''
                     node --version
@@ -19,19 +18,26 @@ pipeline {
             }
         }
 
-        stage('test') {
-            agent {
-                docker {
-                    image 'node:18-alpine'
-                    reuseNode true
-                }
-            }
-            steps {
-                sh '''
-                test -f build/index.html
-                npm test
+        stage('Run Tests') {
+            parallel {
+                stage('Unit Tests') {
+                    steps {
+                        sh '''
+                        test -f build/index.html
+                        npm test
 
-                '''
+                        '''
+                    }
+                }
+
+                stage('Integration Tests') {
+                    steps {
+                        sh '''
+                        echo "integration tests idk
+
+                        '''
+                    }
+                }
             }
         }
     }
