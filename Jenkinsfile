@@ -39,6 +39,15 @@ pipeline {
                 }
             }
         }
+
+        stage('Deploy') {
+            steps {
+                sh '''
+                npm install netlify-cli
+                npx netlify --version
+                '''
+            }
+        }
     }
 
     post {
